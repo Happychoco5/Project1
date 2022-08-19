@@ -13,7 +13,21 @@ public class MeetingServiceImpl implements MeetingService{
     }
 
     @Override
+    public Meeting createMeeting(Meeting meeting) {
+        if(meeting.getSummary() == "" || meeting.getAddress() == "")
+        {
+            throw new RuntimeException("Address or summary cannot be left empty.");
+        }
+        return this.meetingDAO.createMeeting(meeting);
+    }
+
+    @Override
     public List<Meeting> getAllMeetings() {
         return this.meetingDAO.getAllMeetings();
+    }
+
+    @Override
+    public Meeting getMeetingWithId(int id) {
+        return this.meetingDAO.getMeetingWithId(id);
     }
 }

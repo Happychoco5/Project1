@@ -3,6 +3,11 @@ package dev.terry.app;
 import dev.terry.data.ComplaintDAOPostgres;
 import dev.terry.data.MeetingDAOPostgres;
 import dev.terry.handlers.complaints.CreateComplaintHandler;
+import dev.terry.handlers.complaints.GetAllComplaintsHandler;
+import dev.terry.handlers.complaints.UpdateComplaintMeetingHandler;
+import dev.terry.handlers.complaints.UpdatePriorityHandler;
+import dev.terry.handlers.meetings.CreateMeetingHandler;
+import dev.terry.handlers.meetings.GetAllMeetingsHandler;
 import dev.terry.services.ComplaintService;
 import dev.terry.services.ComplaintServiceImpl;
 import dev.terry.services.MeetingService;
@@ -14,16 +19,30 @@ public class App {
     public final static MeetingService meetingService = new MeetingServiceImpl(new MeetingDAOPostgres());
 
     public static void main(String[] args) {
-        Javalin app = Javalin.create();
+        Javalin app = Javalin.create(config ->{
+            config.enableDevLogging();
+            config.enableCorsForAllOrigins();
+        });
 
         //Complaint Handlers
         CreateComplaintHandler createComplaintHandler = new CreateComplaintHandler();
+        GetAllComplaintsHandler getAllComplaintsHandler = new GetAllComplaintsHandler();
+        UpdateComplaintMeetingHandler updateComplaintMeetingHandler = new UpdateComplaintMeetingHandler();
+        UpdatePriorityHandler updatePriorityHandler = new UpdatePriorityHandler();
 
         app.post("/complaints", createComplaintHandler); //Creates a new complaint
+        app.get("/complaints", getAllComplaintsHandler); //gets all complaints
+        app.put("/complaints/{id}/{priority}", updatePriorityHandler); //Update based on id
+        app.put("/complaints/{id}/meetings/{mId}", updateComplaintMeetingHandler); //Attach a complaint to a meeting
+        //Get the complaint and set the meeting id
 
         //Meeting Handlers
 
-        app.get("/meetings", null);
+        CreateMeetingHandler createMeetingHandler = new CreateMeetingHandler();
+        GetAllMeetingsHandler getAllMeetingsHandler = new GetAllMeetingsHandler();
+
+        app.post("/meetings", createMeetingHandler); //create a new meeting
+        app.get("/meetings", getAllMeetingsHandler); //gets all meetings
 
         //AppUser Handlers
 

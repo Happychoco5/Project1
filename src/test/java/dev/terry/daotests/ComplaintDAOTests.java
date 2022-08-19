@@ -3,6 +3,7 @@ package dev.terry.daotests;
 import dev.terry.data.ComplaintDAO;
 import dev.terry.data.ComplaintDAOPostgres;
 import dev.terry.entities.Complaint;
+import dev.terry.entities.enums.Priority;
 import dev.terry.utils.ConnectionUtil;
 import org.junit.jupiter.api.*;
 
@@ -50,7 +51,19 @@ public class ComplaintDAOTests {
         Assertions.assertNotEquals(0, this.complaintDAO.getAllComplaints());
     }
 
+    @Test
+    @Order(3)
+    void update_meetingId(){
+        this.complaintDAO.updateMeeting(this.complaintDAO.getComplaintWithId(1), 1);
+        Assertions.assertEquals(1, this.complaintDAO.getComplaintWithId(1).getMeetingId());
+    }
 
+    @Test
+    @Order(4)
+    void update_priority(){
+        this.complaintDAO.updatePriority(this.complaintDAO.getComplaintWithId(1), Priority.LOW);
+        Assertions.assertEquals(Priority.LOW, this.complaintDAO.getComplaintWithId(1).getPriority());
+    }
 
 //    @AfterAll
 //    static void teardown(){

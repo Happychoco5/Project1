@@ -2,6 +2,7 @@ package dev.terry.services;
 
 import dev.terry.data.ComplaintDAO;
 import dev.terry.entities.Complaint;
+import dev.terry.entities.enums.Priority;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ public class ComplaintServiceImpl implements ComplaintService{
 
     @Override
     public Complaint createComplaint(Complaint complaint) {
-        if(complaint.getSubject() == ""){
+        if(complaint.getSubject() == "" || complaint.getDescription() == ""){
             //can't be blank
-            throw new RuntimeException("Cannot have subject be empty");
+            throw new RuntimeException("Cannot have field be empty");
         }
         return this.complaintDAO.createComplaint(complaint);
     }
@@ -23,5 +24,20 @@ public class ComplaintServiceImpl implements ComplaintService{
     @Override
     public List<Complaint> getAllComplaints() {
         return this.complaintDAO.getAllComplaints();
+    }
+
+    @Override
+    public Complaint getComplaintWithId(int id) {
+        return this.complaintDAO.getComplaintWithId(id);
+    }
+
+    @Override
+    public Complaint updateMeeting(Complaint complaint, int meetingId) {
+        return this.complaintDAO.updateMeeting(complaint, meetingId);
+    }
+
+    @Override
+    public Complaint updatePriority(Complaint complaint, Priority priority) {
+        return this.complaintDAO.updatePriority(complaint, priority);
     }
 }

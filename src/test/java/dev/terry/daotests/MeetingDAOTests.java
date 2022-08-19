@@ -2,6 +2,7 @@ package dev.terry.daotests;
 
 import dev.terry.data.MeetingDAO;
 import dev.terry.data.MeetingDAOPostgres;
+import dev.terry.entities.Complaint;
 import dev.terry.entities.Meeting;
 import org.junit.jupiter.api.*;
 
@@ -9,9 +10,18 @@ import org.junit.jupiter.api.*;
 public class MeetingDAOTests {
 
     static MeetingDAO meetingDAO = new MeetingDAOPostgres();
+
     @Test
     @Order(1)
+    void create_meeting()
+    {
+        Meeting meeting = new Meeting("Summary", "Addresss", 23);
+        Meeting savedMeeting = this.meetingDAO.createMeeting(meeting);
+        Assertions.assertEquals(meeting.getId(), savedMeeting.getId());
+    }
+    @Test
+    @Order(2)
     void get_all_meetings(){
-        Assertions.assertEquals(1, meetingDAO.getAllMeetings().size());
+        Assertions.assertNotEquals(0, meetingDAO.getAllMeetings().size());
     }
 }

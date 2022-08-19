@@ -11,7 +11,9 @@ public class GetAllComplaintsHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
         Gson gson = new Gson();
+
         String json = gson.toJson(App.complaintService.getAllComplaints());
-        ctx.result("All complaints: " + json);
+
+        ctx.result(json);
     }
 }

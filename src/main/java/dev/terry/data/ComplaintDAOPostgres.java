@@ -2,7 +2,6 @@ package dev.terry.data;
 
 import dev.terry.entities.Complaint;
 import dev.terry.entities.enums.Priority;
-import dev.terry.entities.enums.Status;
 import dev.terry.utils.ConnectionUtil;
 
 import java.sql.Connection;
@@ -73,5 +72,74 @@ public class ComplaintDAOPostgres implements ComplaintDAO{
         return null;
     }
 
+    @Override
+    public Complaint getComplaintWithId(int id) {
+        try(Connection conn = ConnectionUtil.createConnection()){
+            String sql = "select * from complaint where id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if(!rs.next())
+            {
+                return null;
+            }
+
+            Complaint complaint = new Complaint();
+
+            complaint.setId(rs.getInt("id"));
+            complaint.setSubject(rs.getString("subject"));
+            complaint.setDescription(rs.getString("description"));
+            complaint.setMeetingId(rs.getInt("meetingId"));
+            complaint.setPriority(Priority.valueOf(rs.getString("priority")));
+
+            return complaint;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Complaint updateMeeting(Complaint complaint, int meetingId) {
+        try(Connection conn = ConnectionUtil.createConnection())
+        {
+            String sql = "update complaint set meetingId = ? where id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, meetingId);
+            preparedStatement.setInt(2, complaint.getId());
+
+            preparedStatement.executeUpdate();
+
+            return complaint;
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Complaint updatePriority(Complaint complaint, Priority priority) {
+        try(Connection conn = ConnectionUtil.createConnection()){
+            String sql = "update complaint set priority = ? where id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setString(1, priority.name());
+            preparedStatement.setInt(2, complaint.getId());
+
+            preparedStatement.executeUpdate();
+
+            return complaint;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
