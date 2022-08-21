@@ -4,5 +4,6 @@ public enum Priority {
     HIGH,
     LOW,
     IGNORED,
+    ADDRESSED,
     UNASSIGNED
 }

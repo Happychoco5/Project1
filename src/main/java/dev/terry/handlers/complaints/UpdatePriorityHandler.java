@@ -27,6 +27,9 @@ public class UpdatePriorityHandler implements Handler {
                     updatePriority(id, "IGNORED");
                     ctx.result("Successfully updated the priority on the complaint");
                     break;
+                case "ADDRESSED": //assign to addressed
+                    updatePriority(id, "ADDRESSED");
+                    ctx.result("Successfully updated the priority on the complaint");
                 case "UNASSIGNED": //assign to unassigned
                     updatePriority(id, "UNASSIGNED");
                     ctx.result("Successfully updated the priority on the complaint");

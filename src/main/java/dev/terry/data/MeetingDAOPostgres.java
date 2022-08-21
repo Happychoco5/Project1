@@ -54,7 +54,7 @@ public class MeetingDAOPostgres implements MeetingDAO{
                 Meeting meeting = new Meeting();
 
                 meeting.setId(rs.getInt("id"));
-                meeting.setAddress(rs.getString("summary"));
+                meeting.setSummary(rs.getString("summary"));
                 meeting.setAddress(rs.getString("address"));
                 meeting.setStatus(Status.valueOf(rs.getString("status")));
                 meeting.setTime(rs.getLong("time"));
