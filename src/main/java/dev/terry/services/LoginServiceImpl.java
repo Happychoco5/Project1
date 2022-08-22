@@ -18,7 +18,6 @@ public class LoginServiceImpl implements LoginService{
         {
             throw new RuntimeException("User with that username does not exist");
         }
-        System.out.println(appUser.getPassword() + " " + password);
         if(!appUser.getPassword().equals(password))
         {
             throw new RuntimeException("Password does not match");

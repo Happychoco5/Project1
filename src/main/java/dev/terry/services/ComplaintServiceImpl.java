@@ -14,7 +14,7 @@ public class ComplaintServiceImpl implements ComplaintService{
 
     @Override
     public Complaint createComplaint(Complaint complaint) {
-        if(complaint.getSubject() == "" || complaint.getDescription() == ""){
+        if(complaint.getSubject().equals("") || complaint.getDescription().equals("")){
             //can't be blank
             throw new RuntimeException("Cannot have field be empty");
         }

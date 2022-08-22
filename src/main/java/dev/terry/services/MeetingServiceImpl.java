@@ -14,7 +14,7 @@ public class MeetingServiceImpl implements MeetingService{
 
     @Override
     public Meeting createMeeting(Meeting meeting) {
-        if(meeting.getSummary() == "" || meeting.getAddress() == "")
+        if(meeting.getSummary().equals("") || meeting.getAddress().equals(""))
         {
             throw new RuntimeException("Address or summary cannot be left empty.");
         }
