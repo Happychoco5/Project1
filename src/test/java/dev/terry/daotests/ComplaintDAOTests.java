@@ -65,6 +65,15 @@ public class ComplaintDAOTests {
         Assertions.assertEquals(Priority.LOW, this.complaintDAO.getComplaintWithId(1).getPriority());
     }
 
+    @Test
+    @Order(5)
+    void create_complaint_with_meetingid(){
+        Complaint complaint = new Complaint("Crayons", "I think I ate too many crayons.");
+        Complaint savedComplaint = this.complaintDAO.createComplaintWithMeetingId(complaint, 1);
+
+        Assertions.assertEquals(1, complaintDAO.getComplaintWithId(savedComplaint.getId()).getMeetingId());
+    }
+
 //    @AfterAll
 //    static void teardown(){
 //        try(Connection conn = ConnectionUtil.createConnection()){

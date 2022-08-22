@@ -8,6 +8,8 @@ import java.util.List;
 public interface ComplaintDAO {
     public Complaint createComplaint(Complaint complaint);
 
+    public Complaint createComplaintWithMeetingId(Complaint complaint, int id);
+
     public List<Complaint> getAllComplaints();
 
     public Complaint getComplaintWithId(int id);

@@ -14,11 +14,13 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(String username, String password, String fname, String lname) {
+    public AppUser(int id, String username, String password, String fname, String lname, Role role) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.fname = fname;
         this.lname = lname;
+        this.role = role;
     }
 
     public int getId() {

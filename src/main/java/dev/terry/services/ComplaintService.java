@@ -9,6 +9,8 @@ public interface ComplaintService {
 
     public Complaint createComplaint(Complaint complaint);
 
+    public Complaint createComplaintWithMeetingId(Complaint complaint, int id);
+
     public List<Complaint> getAllComplaints();
 
     public Complaint getComplaintWithId(int id);

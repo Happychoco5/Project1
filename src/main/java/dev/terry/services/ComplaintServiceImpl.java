@@ -14,11 +14,21 @@ public class ComplaintServiceImpl implements ComplaintService{
 
     @Override
     public Complaint createComplaint(Complaint complaint) {
+        complaintChecker(complaint);
+        return this.complaintDAO.createComplaint(complaint);
+    }
+
+    @Override
+    public Complaint createComplaintWithMeetingId(Complaint complaint, int id) {
+        complaintChecker(complaint);
+        return this.complaintDAO.createComplaintWithMeetingId(complaint, id);
+    }
+
+    void complaintChecker(Complaint complaint){
         if(complaint.getSubject().equals("") || complaint.getDescription().equals("")){
             //can't be blank
             throw new RuntimeException("Cannot have field be empty");
         }
-        return this.complaintDAO.createComplaint(complaint);
     }
 
     @Override

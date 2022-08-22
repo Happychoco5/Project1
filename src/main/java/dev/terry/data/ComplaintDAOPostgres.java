@@ -43,6 +43,28 @@ public class ComplaintDAOPostgres implements ComplaintDAO{
     }
 
     @Override
+    public Complaint createComplaintWithMeetingId(Complaint complaint, int id) {
+        try(Connection conn = ConnectionUtil.createConnection()){
+            String sql = "update complaint set meetingId = ? where id = ?";
+            Complaint savedComplaint = createComplaint(complaint);
+
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, complaint.getId());
+
+            preparedStatement.executeUpdate();
+
+            return savedComplaint;
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Complaint> getAllComplaints() {
         try(Connection conn = ConnectionUtil.createConnection()){
             String sql = "select * from complaint";

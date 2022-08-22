@@ -12,7 +12,7 @@ public class UpdateComplaintMeetingHandler implements Handler {
         int id = Integer.parseInt(ctx.pathParam("id"));
         int meetingId = Integer.parseInt(ctx.pathParam("mId"));
 
-        if(App.complaintService.getComplaintWithId(id) != null){
+        //if(App.complaintService.getComplaintWithId(id) != null){
             if(App.meetingService.getMeetingWithId(meetingId) != null){
                 //Execute the update
                 App.complaintService.updateMeeting(App.complaintService.getComplaintWithId(id), meetingId);
@@ -23,10 +23,10 @@ public class UpdateComplaintMeetingHandler implements Handler {
                 ctx.status(404);
                 ctx.result("Could not find the meeting with that ID");
             }
-        }
-        else {
-            ctx.status(404);
-            ctx.result("Could not find the complaint with that ID");
-        }
+        //}
+        //else {
+            //ctx.status(404);
+            //ctx.result("Could not find the complaint with that ID");
+        //}
     }
 }

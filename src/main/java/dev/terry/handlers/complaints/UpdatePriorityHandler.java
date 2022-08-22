@@ -12,7 +12,7 @@ public class UpdatePriorityHandler implements Handler {
         int id = Integer.parseInt(ctx.pathParam("id"));
         String priority = ctx.pathParam("priority");
 
-        if(App.complaintService.getComplaintWithId(id) != null){
+        //if(App.complaintService.getComplaintWithId(id) != null){
             //Execute the update
             switch(priority){
                 case "HIGH": //assign to high
@@ -39,11 +39,11 @@ public class UpdatePriorityHandler implements Handler {
                     ctx.result("Unable to update the priority on complaint.");
                     break;
             }
-        }
-        else {
-            ctx.status(404);
-            ctx.result("Could not find the complaint with that ID");
-        }
+        //}
+        //else {
+            //ctx.status(404);
+            //ctx.result("Could not find the complaint with that ID");
+        //}
     }
 
     public void updatePriority(int id, String priority){
