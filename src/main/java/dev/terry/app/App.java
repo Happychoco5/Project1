@@ -67,6 +67,7 @@ public class App {
 
         app.post("/appusers", createAccountHandler);//Create a new user
         app.patch("/appusers/{username}/{role}", updateRoleHandler);//Updates user role
+        //app.get("/appusers", null); //Get all appusers
 
 
         app.start();

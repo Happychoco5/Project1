@@ -19,8 +19,7 @@ public class CreateAccountHandler implements Handler {
         AppUser newUser = App.appUserService.createAccount(appUser);
 
         String appUserJson = gson.toJson(newUser);
-
-        ctx.result(appUserJson);
         ctx.status(201);
+        ctx.result(appUserJson);
     }
 }

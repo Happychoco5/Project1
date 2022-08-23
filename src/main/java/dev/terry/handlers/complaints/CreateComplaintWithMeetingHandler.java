@@ -17,10 +17,19 @@ public class CreateComplaintWithMeetingHandler implements Handler {
 
         Complaint complaint = gson.fromJson(json, Complaint.class);
 
-        Complaint savedComplaint = App.complaintService.createComplaintWithMeetingId(complaint, meetingId);
+        if(App.meetingService.getMeetingWithId(meetingId) != null)
+        {
+            Complaint savedComplaint = App.complaintService.createComplaintWithMeetingId(complaint, meetingId);
 
-        String complaintJson = gson.toJson(savedComplaint);
+            String complaintJson = gson.toJson(savedComplaint);
+            ctx.status(201);
+            ctx.result(complaintJson);
+        }
+        else
+        {
+            ctx.status(404);
+            ctx.result("Could not find meeting with that ID");
+        }
 
-        ctx.result(complaintJson);
     }
 }
