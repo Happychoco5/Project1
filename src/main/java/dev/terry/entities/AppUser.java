@@ -9,18 +9,28 @@ public class AppUser {
     private String password;
     private String fname;
     private String lname;
+    private boolean isApproved;
     private Role role;
 
     public AppUser() {
     }
 
-    public AppUser(int id, String username, String password, String fname, String lname, Role role) {
+    public AppUser(int id, String username, String password, String fname, String lname, boolean isApproved, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.fname = fname;
         this.lname = lname;
+        this.isApproved = isApproved;
         this.role = role;
+    }
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 
     public int getId() {

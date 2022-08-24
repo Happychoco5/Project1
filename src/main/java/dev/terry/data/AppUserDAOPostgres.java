@@ -1,10 +1,13 @@
 package dev.terry.data;
 
+import dev.terry.app.App;
 import dev.terry.entities.AppUser;
 import dev.terry.entities.enums.Role;
 import dev.terry.utils.ConnectionUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppUserDAOPostgres implements AppUserDAO {
 
@@ -12,7 +15,7 @@ public class AppUserDAOPostgres implements AppUserDAO {
     public AppUser createAccount(AppUser appUser) {
         try(Connection conn = ConnectionUtil.createConnection())
         {
-            String sql = "insert into app_user values(default, ?, ?, ?, ?, default)";
+            String sql = "insert into app_user values(default, ?, ?, ?, ?, default, default)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, appUser.getUsername());
@@ -56,6 +59,7 @@ public class AppUserDAOPostgres implements AppUserDAO {
             appUser.setPassword(rs.getString("password"));
             appUser.setFname(rs.getString("fname"));
             appUser.setLname(rs.getString("lname"));
+            appUser.setApproved(rs.getBoolean("isApproved"));
             appUser.setRole(Role.valueOf(rs.getString("userRole")));
 
             return appUser;
@@ -81,6 +85,35 @@ public class AppUserDAOPostgres implements AppUserDAO {
             return appUser;
         }
         catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<AppUser> getAllAppUsers() {
+        try(Connection conn = ConnectionUtil.createConnection()){
+            String sql = "select * from app_user";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            List<AppUser> appUsers = new ArrayList<>();
+            while(rs.next()){
+                AppUser appUser = new AppUser();
+                appUser.setId(rs.getInt("id"));
+                appUser.setUsername(rs.getString("username"));
+                appUser.setPassword("");
+                appUser.setFname(rs.getString("fname"));
+                appUser.setLname(rs.getString("lname"));
+                appUser.setApproved(rs.getBoolean("isApproved"));
+                appUser.setRole(Role.valueOf(rs.getString("userRole")));
+                System.out.println(appUser.toString());
+                appUsers.add(appUser);
+            }
+            return appUsers;
+        }
+        catch(SQLException e){
             e.printStackTrace();
         }
         return null;

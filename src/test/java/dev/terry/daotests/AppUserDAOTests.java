@@ -16,7 +16,7 @@ public class AppUserDAOTests {
     @Test
     @Order(1)
     void create_new_user(){
-        AppUser appUser = new AppUser(0, "Kirito", "TheBestPlayerEver123", "Kazuto", "Kirigaya", Role.UNREGISTERED);
+        AppUser appUser = new AppUser(0, "Kirito", "TheBestPlayerEver123", "Kazuto", "Kirigaya", false, Role.UNREGISTERED);
         AppUser savedAppUser = appUserDAO.createAccount(appUser);
         Assertions.assertNotNull(savedAppUser);
     }
@@ -27,5 +27,12 @@ public class AppUserDAOTests {
         AppUser appUser = appUserDAO.getAppUserByUsername("Kirito");
         AppUser savedUser = appUserDAO.updateRole(appUser, Role.CONSTITUENT);
         Assertions.assertEquals(savedUser.getRole(), Role.CONSTITUENT);
+    }
+
+    @Test
+    @Order(3)
+    void get_all_app_users()
+    {
+        Assertions.assertNotEquals(0, appUserDAO.getAllAppUsers().size());
     }
 }

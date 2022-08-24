@@ -4,6 +4,8 @@ import dev.terry.data.AppUserDAO;
 import dev.terry.entities.AppUser;
 import dev.terry.entities.enums.Role;
 
+import java.util.List;
+
 public class AppUserServiceImpl implements AppUserService{
 
     private AppUserDAO appUserDAO;
@@ -31,5 +33,10 @@ public class AppUserServiceImpl implements AppUserService{
     @Override
     public AppUser updateRole(AppUser appUser, Role role) {
         return this.appUserDAO.updateRole(appUser, role);
+    }
+
+    @Override
+    public List<AppUser> getAllAppUsers() {
+        return this.appUserDAO.getAllAppUsers();
     }
 }

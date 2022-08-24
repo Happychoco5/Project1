@@ -7,6 +7,7 @@ import dev.terry.data.MeetingDAOPostgres;
 import dev.terry.dtos.LoginCredentials;
 import dev.terry.entities.AppUser;
 import dev.terry.handlers.appusers.CreateAccountHandler;
+import dev.terry.handlers.appusers.GetAllAppUsersHandler;
 import dev.terry.handlers.appusers.UpdateRoleHandler;
 import dev.terry.handlers.complaints.*;
 import dev.terry.handlers.meetings.CreateMeetingHandler;
@@ -53,6 +54,7 @@ public class App {
 
         CreateAccountHandler createAccountHandler = new CreateAccountHandler();
         UpdateRoleHandler updateRoleHandler = new UpdateRoleHandler();
+        GetAllAppUsersHandler getAllAppUsersHandler = new GetAllAppUsersHandler();
 
         app.post("/login", ctx -> {
             String jsonBody = ctx.body();
@@ -67,8 +69,7 @@ public class App {
 
         app.post("/appusers", createAccountHandler);//Create a new user
         app.patch("/appusers/{username}/{role}", updateRoleHandler);//Updates user role
-        //app.get("/appusers", null); //Get all appusers
-
+        app.get("/appusers", getAllAppUsersHandler); //Get all appusers
 
         app.start();
     }
