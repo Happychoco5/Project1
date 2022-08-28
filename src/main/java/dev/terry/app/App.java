@@ -49,6 +49,7 @@ public class App {
 
         app.post("/meetings", createMeetingHandler); //create a new meeting
         app.get("/meetings", getAllMeetingsHandler); //gets all meetings
+        //app.patch("/meetings/{id}/{status}", null); //Update meeting status
 
         //AppUser Handlers
 
